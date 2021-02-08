@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo List</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+</head>
+<style>
+    * {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+        background-color: #a0e1ff;
+    }
+
+    .todo {
+        width: 300px;
+        margin: 100px auto auto auto;
+    }
+
+    .todo-header {
+        width: 300px;
+        height: 170px;
+        padding: 5px 10px;
+        background-color: #27b7e8;
+        border-radius: 25px;
+        /*float: left;*/
+        /* border:1px solid blue; */
+    }
+
+    .todo-header-left {
+        width: 180px;
+        /* border: 1px solid blue; */
+    }
+
+    .todo-header-left h4 {
+        color: #ffffff;
+        font-size: 20px;
+        padding: 0px 20px;
+    }
+
+    .todo-header-left input {
+        color: #ffffff;
+        font-size: 15px;
+        width: 120px;
+        height: 20px;
+        border: 0px;
+        border-left: 4px solid #ffffff;
+        margin: 0px 18px;
+        padding: 0px 5px;
+        background-color: #27b7e8;
+    }
+
+    .todo-header-left input::placeholder {
+        color: #ffffff;
+    }
+
+    .todo-header-left input {
+        outline: none;
+    }
+
+    .todo-header-right {
+        width: 80px;
+        height: 100px;
+        float: right;
+        margin-top: -80px;
+        margin-right: 15px;
+        /* border: 1px solid blue; */
+    }
+
+    .btn-add {
+        width: 70px;
+        height: 70px;
+        margin-top: 10px;
+        margin-left: 4px;
+        cursor: pointer;
+        border-radius: 40px;
+        border: 1px solid #ffffff;
+    }
+
+    .btn-add:active {
+        background-color: #ffffff;
+    }
+
+    .add-icon-color {
+        color: #27b7e8;
+    }
+
+    .todo-footer {
+        width: 320px;
+        height: 400px;
+        margin-top: -50px;
+        /* margin-left: 10px; */
+        background-color: #ffffff;
+        border: 1px solid #ffffff;
+        border-radius: 30px;
+        overflow-y: scroll;
+    }
+
+    /* .todo-footer::-webkit-scrollbar {
+        width: 10px;
+    } */
+
+    /* Track */
+    /* .todo-footer::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    } */
+
+    /* Handle */
+    /* .todo-footer::-webkit-scrollbar-thumb {
+        background: #888;
+    } */
+
+    /* Handle on hover */
+    /* .todo-footer::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    } */
+
+    .todo-list {
+        margin-top: 25px;
+    }
+
+    .edit-icon-color {
+        color: #27b7e8;
+    }
+
+    .delete-icon-color {
+        color: red;
+    }
+
+    .list li {
+        color: rgba(39, 183, 232, 0.8);
+        width: 250px;
+        height: 25px;
+        margin: 8px auto auto -18px;
+        padding: 10px 3px 3px 10px;
+        font-size: 14px;
+        font-weight: bold;
+        list-style: none;
+        /* cursor: pointer; */
+        /* background-color: #dae8ed; */
+        /* background-color: rgba(218, 232, 237, 0.8); */
+        border-left: 4px solid #27b7e8;
+        background-color: rgba(160, 225, 255, 0.7);
+
+        border-radius: 0px 18px 18px 0px;
+        /* border: 1px solid blue; */
+    }
+
+    .list li:hover {
+        /* background-color: #d7e3e8; */
+        /* border-radius: 10px 10px 10px 10px; */
+        /* background-color: #d2d7d8; */
+        /* background-color: rgba(210, 215, 216, 0.5); */
+        border: 0px solid #000000;
+        transition: 0.5s;
+        border-left: 10px solid #27b7e8;
+
+    }
+
+    .list button {
+        color: #27b7e8;
+        float: right;
+        margin-right: 10px;
+    }
+
+    .btn.edit-btn {
+        background-color: rgba(160, 225, 255, 0.2);
+        cursor: pointer;
+        border: 0px solid blue;
+        margin-left: -8px;
+    }
+
+    .btn.edit-btn:hover {
+        background-color: rgba(200, 205, 206, 0.9);
+        cursor: pointer;
+        border: 0px solid blue;
+    }
+
+    .btn.del-btn {
+        background-color: rgba(160, 225, 255, 0.2);
+        cursor: pointer;
+        border: 0px solid blue;
+    }
+
+    .btn.del-btn:hover {
+        background-color: rgba(200, 205, 206, 0.9);
+        cursor: pointer;
+        border: 0px solid blue;
+    }
+</style>
+
+<body>
+    <div class="todo">
+
+        <div class="todo-header">
+            <div class="todo-header-left">
+                <h4>ToDo List</h4>
+                <input type="text" id="input" placeholder="Say Something">
+            </div>
+
+            <div class="todo-header-right">
+                <div class="add-box" id="addBox">
+                    <button id="addBtn" class="btn btn-add" onclick="addList()">
+                        <i class="fas fa-plus fa-2x add-icon-color"></i>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="todo-footer">
+
+            <div class="todo-list">
+                <ul class="list" id="list">
+
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+
+        let input = document.getElementById("input");
+        let list = document.getElementById("list");
+        let minTextLength = 3;
+        let i = 1;
+
+        function textFilter(x) {
+            if (x) {
+                if (x.length >= minTextLength)
+                    return x;
+                else {
+                    alert("minimum text length is 3");
+                    return false;
+                }
+            } else {
+                alert("input text is empty");
+                return false;
+            }
+        }
+
+        function showList(text) {
+            list.innerHTML += `
+                <li class="list-item" id="list${i}">
+                    <span id="listText${i}">${text}</span>
+                    <button class="btn edit-btn" onclick='editList(${i})'>
+                        <i class="fas fa-edit edit-icon-color"></i>
+                    </button>
+                    <button class="btn del-btn" onclick='deleteList(${i})'>
+                        <i class="fas fa-trash-alt delete-icon-color"></i>
+                    </button>
+                </li>
+            `;
+            i++;
+        }
+
+        function deleteList(listId) {
+            let current = document.getElementById(`list${listId}`);
+            let currentText = document.getElementById(`listText${listId}`).innerHTML;
+            let deleteConfirm = confirm(`Are You Sure To Delete List '${currentText}' ?`);
+
+            if (deleteConfirm) {
+                list.removeChild(current);
+            } else {
+                console.log("Delete Cancel");
+            }
+        }
+
+        function addList() {
+            // get 
+            let inputText = textFilter(input.value);
+
+            // set
+            if (inputText) {
+                showList(inputText);
+                input.value = "";
+            }
+        }
+
+        function editList(listId) {
+            let current = document.getElementById(`listText${listId}`);
+            let newText = prompt("Say Something", current.innerHTML);
+
+            if (textFilter(newText)) {
+                current.innerHTML = newText;
+            }
+
+        }
+    </script>
+
+</body>
+
+</html>
